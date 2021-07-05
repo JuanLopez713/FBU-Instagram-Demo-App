@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">FBUInstagram</string>
+    <string name="btn_name_en">Login</string>
+    <string name="pw_hint_en">password</string>
+    <string name="pw_autofill_en">username</string>
+    <string name="un_hint_en">username</string>
+    <string name="un_autofill_en">enter your username</string>
+    <string name="MA_et_hint_en">Description…</string>
+    <string name="MA_et_autofill_en">Write a caption!</string>
+    <string name="MA_img_desc_en">Your Picture</string>
+    <string name="MA_pic_btn_txt_en">Take Picture</string>
+    <string name="MA_sub_btn_txt_en">Submit</string>
+
+</resources>
