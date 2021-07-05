@@ -12,5 +12,8 @@
     <string name="MA_sub_btn_txt_en">Submit</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_up_en">Sign Up</string>
+    <string name="sign_up_text_en">Don\'t have an account? Sign up!</string>
+    <string name="login_text_signin_en">Already have an account? Sign in!</string>
 
 </resources>

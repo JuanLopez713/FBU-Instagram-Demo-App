@@ -8,32 +8,15 @@
     android:orientation="vertical"
     tools:context=".activities.LoginActivity"
     >
-
-    <EditText
-        android:id="@+id/etUsername"
+    <include
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:autofillHints="@string/un_autofill_en"
-        android:ems="10"
-        android:hint="@string/un_hint_en"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/etPassword"
+        android:layout_height="50dp" />
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:autofillHints="@string/pw_autofill_en"
-        android:ems="10"
-        android:hint="@string/pw_hint_en"
-        android:inputType="textPassword" />
+        android:layout_height="675dp"/>
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/btn_name_en" />
 
 </LinearLayout>

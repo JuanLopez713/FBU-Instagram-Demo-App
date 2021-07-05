@@ -32,9 +32,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-
-import com.example.fbuinstagram.activities.PostingActivity;
-import com.example.fbuinstagram.databinding.ActivityMainBinding;
 import com.example.fbuinstagram.databinding.FragmentPostCreationBinding;
 import com.example.fbuinstagram.models.Post;
 import com.example.parstagram.FragmentController;

@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements com.example.parst
         this.setSupportActionBar(toolbar);
         ActionBar supportActionBar = (this.getSupportActionBar());
         supportActionBar.setDisplayShowHomeEnabled(true);
-        supportActionBar.setLogo(R.drawable.icon);
+        supportActionBar.setLogo(R.drawable.nux_dayone_landing_logo);
 
         //toHomeFragment();
         bottomNavigationView = binding.bottomNavigation;
