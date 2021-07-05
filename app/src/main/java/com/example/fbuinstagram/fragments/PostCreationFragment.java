@@ -2,6 +2,7 @@ package com.example.fbuinstagram.fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -36,12 +37,15 @@ import com.example.fbuinstagram.activities.PostingActivity;
 import com.example.fbuinstagram.databinding.ActivityMainBinding;
 import com.example.fbuinstagram.databinding.FragmentPostCreationBinding;
 import com.example.fbuinstagram.models.Post;
+import com.example.parstagram.FragmentController;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.List;
@@ -60,6 +64,7 @@ public class PostCreationFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     FragmentPostCreationBinding binding;
+    FragmentController controller;
     private EditText etDescription;
     private Button btnCaptureImage;
     private ImageView ivPostImage;
@@ -76,7 +81,16 @@ public class PostCreationFragment extends Fragment {
     public PostCreationFragment() {
         // Required empty public constructor
     }
-
+    @Override
+    public void onAttach(@NonNull @NotNull Context context) {
+        super.onAttach(context);
+        if(context instanceof com.example.parstagram.FragmentController){
+            controller = (com.example.parstagram.FragmentController) context;
+        }
+        else{
+            Log.e(TAG, "ERROR:  context passed in did NOT implement FragmentController!");
+        }
+    }
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -151,10 +165,7 @@ public class PostCreationFragment extends Fragment {
         fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", photoFile);
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
-            //            @Override
-//            public void onClick(View v) {
-//                launchCamera();
-//            }
+
             @Override
             public void onClick(View v) {
                 int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -265,6 +276,7 @@ public class PostCreationFragment extends Fragment {
                 Log.i(TAG, "Post save was successful!");
                 etDescription.setText("");
                 ivPostImage.setImageResource(0);
+                controller.toHomeFragment();
             }
         });
 
