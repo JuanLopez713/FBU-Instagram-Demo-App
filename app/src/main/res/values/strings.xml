@@ -10,5 +10,7 @@
     <string name="MA_img_desc_en">Your Picture</string>
     <string name="MA_pic_btn_txt_en">Take Picture</string>
     <string name="MA_sub_btn_txt_en">Submit</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

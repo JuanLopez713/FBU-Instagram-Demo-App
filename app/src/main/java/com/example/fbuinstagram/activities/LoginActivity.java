@@ -1,6 +1,7 @@
 package com.example.fbuinstagram.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +12,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.fbuinstagram.R;
+import com.example.fbuinstagram.fragments.FeedFragment;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
+
     EditText etUsername;
     EditText etPassword;
     Button btnLogin;
@@ -26,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         if(ParseUser.getCurrentUser() != null){
-            goFeedActivity();
+            goMainActivity();
         }
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
@@ -65,9 +68,12 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
-    private void goFeedActivity() {
-        Intent i = new Intent(this, FeedActivity.class);
-        startActivity(i);
-        finish();
-    }
+//    private void goFeedActivity() {
+//        Intent i = new Intent(this, FeedActivity.class);
+//        startActivity(i);
+//        finish();
+//    }
+
+
+
 }
