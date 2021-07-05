@@ -1,14 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:layout_margin="20dp"
+        tools:context=".fragments.ProfileFragment">
 
+
+        <RelativeLayout
+            android:id="@+id/topContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp">
+
+            <ImageView
+                android:id="@+id/ivUserProfile"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
+                app:srcCompat="@drawable/icon" />
+
+            <RelativeLayout
+                android:id="@+id/postsContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@+id/ivUserProfile">
+
+                <TextView
+                    android:id="@+id/tvPostsValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="4"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvPosts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvPostsValue"
+                    android:layout_centerHorizontal="true"
+                    android:text="Posts"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/followersContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@+id/postsContainer">
+
+                <TextView
+                    android:id="@+id/tvFollowerValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="713"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvFollowers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvFollowerValue"
+                    android:layout_centerHorizontal="true"
+                    android:text="Followers"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/followingContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@+id/followersContainer">
+
+                <TextView
+                    android:id="@+id/tvFollowingValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="100"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvFollowing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvFollowingValue"
+                    android:layout_centerHorizontal="true"
+                    android:text="Following"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvBio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivUserProfile"
+                android:layout_marginTop="15dp"
+                android:text="This is my bio"
+                android:textSize="12sp" />
+
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/topContainer"
+            android:layout_marginTop="10dp"
+
+            android:backgroundTint="@color/insta_red"
+            android:text="Log Out" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPosts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/btnLogout"
+            android:layout_marginTop="10dp"/>
+
+
+    </RelativeLayout>
 </FrameLayout>
