@@ -12,5 +12,15 @@
     <color name="lavender_blue">#CDC1FF</color>
     <color name="blue_purple_max">#A594F9</color>
     <color name="slate_blue_med">#7371FC</color>
+    <color name="insta_blue">#405DE6</color>
+    <color name="insta_purple">#5851DB</color>
+    <color name="insta_violet">#833AB4</color>
+    <color name="insta_pink">#C13584</color>
+    <color name="insta_pinker">#E1306C</color>
+    <color name="insta_red">#FD1D1D</color>
+    <color name="insta_orange">#F56040</color>
+    <color name="insta_orange_light">#F77737</color>
+    <color name="insta_yellow">#FCAF45</color>
+    <color name="insta_yellow_light">#FFDC80</color>
 
 </resources>

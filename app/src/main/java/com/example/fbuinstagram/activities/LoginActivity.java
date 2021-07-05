@@ -35,12 +35,14 @@ ActivityLoginBinding binding;
         setContentView(binding.getRoot());
 
         //1.) Set up the toolbar for this frag:
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        this.setSupportActionBar(toolbar);
-        ActionBar supportActionBar = (this.getSupportActionBar());
-        supportActionBar.setDisplayShowHomeEnabled(true);
-        supportActionBar.setLogo(R.drawable.nux_dayone_landing_logo);
-       toLoginFragment();
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        this.setSupportActionBar(toolbar);
+//        ActionBar supportActionBar = (this.getSupportActionBar());
+//        supportActionBar.setDisplayShowHomeEnabled(true);
+//        supportActionBar.setLogo(R.drawable.nux_dayone_landing_logo);
+//
+
+        toLoginFragment();
     }
 
 

@@ -133,7 +133,7 @@ public class SignUpFragment extends Fragment {
     private void goMainActivity() {
         Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);
-        //  finish();
+        getActivity().finish();
     }
 
     private void signUpUser(String username, String password) {
