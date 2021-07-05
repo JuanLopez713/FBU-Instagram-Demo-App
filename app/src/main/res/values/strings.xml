@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FBUInstagram</string>
+    <string name="app_name">FBU-Instagram</string>
     <string name="btn_name_en">Login</string>
     <string name="pw_hint_en">password</string>
     <string name="pw_autofill_en">username</string>
