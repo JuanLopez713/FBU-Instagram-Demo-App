@@ -8,7 +8,7 @@
     <string name="MA_et_hint_en">Description…</string>
     <string name="MA_et_autofill_en">Write a caption!</string>
     <string name="MA_img_desc_en">Your Picture</string>
-    <string name="MA_pic_btn_txt_en">Take Picture</string>
+    <string name="MA_pic_btn_txt_en">Take a Picture</string>
     <string name="MA_sub_btn_txt_en">Submit</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
