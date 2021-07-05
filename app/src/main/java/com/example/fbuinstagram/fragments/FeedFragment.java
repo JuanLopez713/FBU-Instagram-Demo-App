@@ -43,10 +43,10 @@ public class FeedFragment extends Fragment {
     private String mParam2;
     FragmentFeedBinding binding;
     FragmentController controller;
-     SwipeRefreshLayout swipeContainer;
-     RecyclerView rvPosts;
-     PostsAdapter adapter;
-     List<Post> allPosts;
+    SwipeRefreshLayout swipeContainer;
+    RecyclerView rvPosts;
+    PostsAdapter adapter;
+    List<Post> allPosts;
 
     public FeedFragment() {
         // Required empty public constructor
@@ -146,7 +146,7 @@ public class FeedFragment extends Fragment {
                 // for debugging purposes let's print every post description to logcat
                 for (Post post : posts) {
 
-                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername()+", date: " + post.getCreatedAt());
+                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername() + ", date: " + post.getCreatedAt());
                 }
 
                 // save received posts to list and notify adapter of new data
@@ -173,7 +173,6 @@ public class FeedFragment extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
 
 
         // initialize the array that will hold posts and create a PostsAdapter

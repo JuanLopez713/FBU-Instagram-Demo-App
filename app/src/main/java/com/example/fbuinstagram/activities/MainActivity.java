@@ -26,6 +26,7 @@ import com.example.fbuinstagram.R;
 import com.example.fbuinstagram.databinding.ActivityMainBinding;
 import com.example.fbuinstagram.fragments.FeedFragment;
 import com.example.fbuinstagram.fragments.PostCreationFragment;
+import com.example.fbuinstagram.fragments.ProfileFragment;
 import com.example.fbuinstagram.models.Post;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
@@ -40,15 +41,17 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements com.example.parstagram.FragmentController {
     private static final String TAG = "MainActivity";
-ActivityMainBinding binding;
+    ActivityMainBinding binding;
     final FragmentManager fragmentManager = getSupportFragmentManager();
     BottomNavigationView bottomNavigationView;
+    ParseUser currentUser = ParseUser.getCurrentUser();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-       //toHomeFragment();
+        //toHomeFragment();
         bottomNavigationView = binding.bottomNavigation;
 //1b.) Sets on click listeners for when items are clicked!
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,6 +62,10 @@ ActivityMainBinding binding;
                     case R.id.action_post:           //If profile is clicked --? go to ProfileFrag, else --> go to HomeFrag (FOR NOW)
                         toPostFragment();
                         break;
+                    case R.id.action_profile:           //If profile is clicked --? go to ProfileFrag, else --> go to HomeFrag (FOR NOW)
+                        toProfileFragment(currentUser);
+                        break;
+                    //If profile is clicked --? go to ProfileFrag, else --> go to HomeFrag (FOR NOW)
                     default:
                         toHomeFragment();
                         break;
@@ -84,7 +91,7 @@ ActivityMainBinding binding;
 
     @Override
     public void toProfileFragment(ParseUser user) {
-
+        fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new ProfileFragment()).commit();
     }
 
     @Override

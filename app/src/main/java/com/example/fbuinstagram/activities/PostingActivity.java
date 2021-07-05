@@ -3,7 +3,7 @@ package com.example.fbuinstagram.activities;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
+import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,7 +31,7 @@ import java.io.File;
 import java.util.List;
 
 public class PostingActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "PostingActivity";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     private EditText etDescription;
     private Button btnCaptureImage;
