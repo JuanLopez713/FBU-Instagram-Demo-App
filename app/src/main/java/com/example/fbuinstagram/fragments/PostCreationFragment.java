@@ -201,24 +201,6 @@ public class PostCreationFragment extends Fragment {
     }
 
     private void launchCamera() {
-//        // create Intent to take a picture and return control to the calling application
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        // Create a File reference for future access
-//        photoFile = getPhotoFileUri(photoFileName);
-//
-//        // wrap File object into a content provider
-//        // required for API >= 24
-//        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-//        Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", photoFile);
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-//
-//        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-//        // So as long as the result is not null, it's safe to use the intent.
-//        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
-//            // Start the image capture intent to take photo
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-//        }
         //Initialize intent to go to camera for taking a pic --> pass in the file to store the taken pic in --> launch intent
         Intent toCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
        toCamera.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
@@ -226,21 +208,6 @@ public class PostCreationFragment extends Fragment {
         cameraResultLauncher.launch(toCamera);
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                // by this point we have the camera photo on disk
-//                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-//                // RESIZE BITMAP, see section below
-//                // Load the taken image into a preview
-//                ivPostImage.setImageBitmap(takenImage);
-//            } else { // Result was a failure
-//                Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }
 
     // Returns the File for a photo stored on disk given the fileName
 

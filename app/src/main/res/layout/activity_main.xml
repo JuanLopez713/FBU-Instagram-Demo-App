@@ -5,9 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
-
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
     <FrameLayout
         android:id="@+id/fragmentContainer"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="675dp"/>
 

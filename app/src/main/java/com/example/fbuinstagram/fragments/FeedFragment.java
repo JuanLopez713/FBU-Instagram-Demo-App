@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentController;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -158,6 +161,9 @@ public class FeedFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
         // Lookup the swipe container view
         swipeContainer = binding.swipeContainer;
         rvPosts = binding.rvPosts;
