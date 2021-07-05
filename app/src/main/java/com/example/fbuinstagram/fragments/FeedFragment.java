@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -41,6 +42,7 @@ public class FeedFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     FragmentFeedBinding binding;
+    FragmentController controller;
      SwipeRefreshLayout swipeContainer;
      RecyclerView rvPosts;
      PostsAdapter adapter;

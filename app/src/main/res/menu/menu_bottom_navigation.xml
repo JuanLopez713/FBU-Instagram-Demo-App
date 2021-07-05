@@ -19,12 +19,12 @@
 <!--        android:icon="@drawable/reels_unclicked_icon"-->
 <!--        android:title="reels"-->
 <!--        app:showAsAction="always" />-->
-<!--    <item-->
-<!--        android:id="@+id/action_shop"-->
-<!--        android:enabled="true"-->
-<!--        android:icon="@drawable/shop_unclicked_icon"-->
-<!--        android:title="shop"-->
-<!--        app:showAsAction="always" />-->
+    <item
+        android:id="@+id/action_post"
+        android:enabled="true"
+        android:icon="@drawable/instagram_new_post_outline_24"
+        android:title="post"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_profile"
         android:enabled="true"
