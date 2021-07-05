@@ -116,10 +116,11 @@ public class FeedActivity extends AppCompatActivity {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-
+               // Log.i(TAG, "done: " + posts);
                 // for debugging purposes let's print every post description to logcat
                 for (Post post : posts) {
-                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
+
+                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername()+", date: " + post.getCreatedAt());
                 }
 
                 // save received posts to list and notify adapter of new data

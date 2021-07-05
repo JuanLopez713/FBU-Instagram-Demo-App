@@ -5,6 +5,8 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.util.Date;
+
 @ParseClassName("Post")
 public class Post extends ParseObject {
     //description
@@ -13,6 +15,8 @@ public class Post extends ParseObject {
     public static final String KEY_IMAGE = "image";
     //user
     public static final String KEY_USER = "user";
+    //user
+    public static final String KEY_DATE = "createdAt";
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);
@@ -38,7 +42,13 @@ public class Post extends ParseObject {
         put(KEY_USER, user);
     }
 
+    public String getTimeCreatedAt(Date date) {
+        String stringDate = String.valueOf(date);
+        String firstPart = stringDate.substring(0, 10);
+        String secondPart = stringDate.substring(24, 28);
 
+        return firstPart +", "+ secondPart;
+    }
 
 
 }
