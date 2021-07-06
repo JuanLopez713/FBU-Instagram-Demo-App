@@ -8,29 +8,32 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.fbuinstagram.activities.LoginActivity;
 import com.example.fbuinstagram.adapters.ProfileAdapter;
 
 import com.example.fbuinstagram.databinding.FragmentProfileBinding;
 import com.example.fbuinstagram.models.Post;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
+
+import com.parse.ParseFile;
+
 import com.parse.ParseUser;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**
@@ -40,40 +43,33 @@ import java.util.List;
  */
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     private static final String TAG = "ProfileFragment";
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
     ParseUser user;
     FragmentProfileBinding binding;
     RecyclerView rvPosts;
     List<Post> profilePosts;
     ProfileAdapter adapter;
     Button btnLogout;
+    TextView tvNoImagesWarning;
+    TextView tvPostsValue;
+    ImageView ivProfilePic;
+    TextView tvBio;
+    TextView tvUsername;
 
-    public ProfileFragment() {
+    public ProfileFragment(ParseUser user, List<Post> profilePosts) {
         // Required empty public constructor
+        this.user = user;
+        this.profilePosts = profilePosts;
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
+
+
+    public static ProfileFragment newInstance(ParseUser user, List<Post> profilePosts) {
+        ProfileFragment fragment = new ProfileFragment(user, profilePosts);
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,10 +77,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -100,21 +92,45 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvPosts = binding.rvPosts;
         btnLogout = binding.btnLogout;
+        tvNoImagesWarning = binding.tvNoImagesWarning;
+        tvPostsValue = binding.tvPostsValue;
+        ivProfilePic = binding.ivUserProfile;
+        tvBio = binding.tvBio;
+        tvUsername = binding.tvUsername;
         // initialize the array that will hold posts and create a PostsAdapter
-        profilePosts = new ArrayList<>();
+        //profilePosts = new ArrayList<>();
         adapter = new ProfileAdapter(getContext(), profilePosts);
-
+        Log.d(TAG, "onViewCreated: " + profilePosts);
         // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-        // query posts from Parstagram
-        //queryPosts();
-        if (ParseUser.getCurrentUser() != null) {
-            user = ParseUser.getCurrentUser();
+
+        if (user != null) {
+
+            ParseFile image = user.getParseFile("profilePicture");
+            tvUsername.setText(user.getUsername());
+            if (image != null) {
+                Log.d(TAG, "Found your profile picture!");
+                Glide.with(getContext()).load(image.getUrl()).centerCrop()
+                        .transform(new CircleCrop()).into(ivProfilePic);
+            }
+
             String userId = user.getObjectId();
-            Log.d(TAG, "userID: " + userId);
-            queryProfilePosts(userId);
+            Log.d(TAG, "userID: " + userId + " name: " + user.getUsername() + " bio: " + user.getString("bio"));
+            tvBio.setText(user.getString("bio"));
+            tvPostsValue.setText(String.valueOf(profilePosts.size()));
+            if (profilePosts.size() > 0) {
+                rvPosts.setVisibility(View.VISIBLE);
+                tvNoImagesWarning.setVisibility(View.GONE);
+                adapter.notifyDataSetChanged();
+            } else {
+                rvPosts.setVisibility(View.GONE);
+                tvNoImagesWarning.setVisibility(View.VISIBLE);
+            }
+
+
+
         }
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -136,32 +152,5 @@ public class ProfileFragment extends Fragment {
         getActivity().finish();
 
     }
-
-    public void queryProfilePosts(String userObjectId) {
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.whereEqualTo(Post.KEY_USER, user);
-        query.include(Post.KEY_USER);
-        query.addDescendingOrder("createdAt");
-        query.setLimit(20);
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e == null) {
-                    Log.d(TAG, "success getting posts for profile!" + posts);
-                    profilePosts.addAll(posts);
-                    adapter.notifyDataSetChanged();
-//                    if (posts.size() > 0) {
-//
-////                        Log.d(TAG, "posts received = " + objects.toString());
-////                        for(int i = 0; i < objects.size(); i++){
-////                            postImages.add(objects.get(i).getImage());
-////                        }
-//
-                    //}
-                } else {
-                    Log.e(TAG, "failed getting posts for profile!");
-                }
-            }
-        });
-    }
+    
 }

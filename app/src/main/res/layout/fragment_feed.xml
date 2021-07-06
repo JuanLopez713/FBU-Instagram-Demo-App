@@ -14,7 +14,7 @@
             android:layout_below="@id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp"
+
             android:orientation="vertical"
             tools:context=".activities.FeedActivity">
 
@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:padding="8dp" />
+                 />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </FrameLayout>

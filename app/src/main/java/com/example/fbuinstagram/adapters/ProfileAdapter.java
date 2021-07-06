@@ -44,7 +44,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     public void onBindViewHolder(@NonNull @NotNull ProfileAdapter.ViewHolder holder, int position) {
         Post post = posts.get(position);
 
-            holder.bind(post);
+        holder.bind(post);
 
     }
 
@@ -58,6 +58,9 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         private ImageView ivImage;
         private TextView tvDescription;
         private TextView tvCreatedAt;
+        private TextView tvUsernameSmall;
+        private TextView tvLikeCount;
+        private ImageView ivProfilePic;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -65,19 +68,28 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
+            tvUsernameSmall = itemView.findViewById(R.id.tvUsernameSmall);
+            tvLikeCount = itemView.findViewById(R.id.tvLikeCount);
+            ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
         }
 
-        public void bind(Post post){
+        public void bind(Post post) {
             // Bind the post data to the view elements
             tvDescription.setText(post.getDescription());
+            String username = post.getUser().getUsername();
+            tvUsername.setText(username);
+            tvUsernameSmall.setText(username);
 
-                tvUsername.setText(post.getUser().getUsername());
-
+            tvLikeCount.setText("0 Likes");
 
             tvCreatedAt.setText(post.getTimeCreatedAt(post.getCreatedAt()));
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
+            }
+            ParseFile profilePic = post.getUser().getParseFile("profilePicture");
+            if (profilePic != null) {
+                Glide.with(context).load(profilePic.getUrl()).circleCrop().into(ivProfilePic);
             }
         }
     }

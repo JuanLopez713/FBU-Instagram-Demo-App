@@ -1,37 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+
     android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivProfilePic"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        tools:srcCompat="@tools:sample/avatars"/>
 
     <TextView
         android:id="@+id/tvUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ivProfilePic"
+        android:layout_alignBottom="@id/ivProfilePic"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/ivProfilePic"
+        android:gravity="center_vertical"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:text="rahul" />
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="Juan"/>
 
     <ImageView
         android:id="@+id/ivImage"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:layout_below="@id/ivProfilePic"
+        android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"/>
+    <ImageButton
+        android:id="@+id/btnLike"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/ivImage"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ufi_heart" />
+    <ImageButton
+        android:id="@+id/btnComment"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/ivImage"
+        android:layout_toEndOf="@id/btnLike"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ufi_comment"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"/>
+    <ImageButton
+        android:id="@+id/btnShare"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/ivImage"
+        android:layout_toEndOf="@id/btnComment"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        android:src="@drawable/direct"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"/>
+    <ImageButton
+        android:id="@+id/btnSave"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/ivImage"
+        android:layout_alignEnd="@id/ivImage"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ufi_save"
+        android:tint="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"/>
+    <TextView
+        android:id="@+id/tvLikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnLike"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="0 Likes" />
+    <TextView
+        android:id="@+id/tvUsernameSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvLikeCount"
+        android:layout_marginStart="10dp"
 
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="Juan" />
     <TextView
         android:id="@+id/tvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_below="@id/tvLikeCount"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/tvUsernameSmall"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         tools:text="trying to look hipster" />
 
     <TextView
         android:id="@+id/tvCreatedAt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tvDescription"
+        android:layout_alignStart="@id/ivImage"
+        android:layout_marginStart="10dp"
+        android:textSize="14sp"
         tools:text="Feb 13, 2021" />
-</LinearLayout>
+</RelativeLayout>

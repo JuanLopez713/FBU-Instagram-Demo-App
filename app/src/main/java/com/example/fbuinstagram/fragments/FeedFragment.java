@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 
 import com.example.fbuinstagram.R;
 import com.example.fbuinstagram.adapters.PostsAdapter;
+
 import com.example.fbuinstagram.databinding.FragmentFeedBinding;
 import com.example.fbuinstagram.models.Post;
 import com.parse.FindCallback;

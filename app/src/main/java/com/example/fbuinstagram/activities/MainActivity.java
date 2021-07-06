@@ -24,6 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.fbuinstagram.R;
 import com.example.fbuinstagram.databinding.ActivityMainBinding;
 import com.example.fbuinstagram.fragments.FeedFragment;
@@ -32,13 +34,16 @@ import com.example.fbuinstagram.fragments.ProfileFragment;
 import com.example.fbuinstagram.models.Post;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements com.example.parstagram.FragmentController {
@@ -47,19 +52,20 @@ public class MainActivity extends AppCompatActivity implements com.example.parst
     final FragmentManager fragmentManager = getSupportFragmentManager();
     BottomNavigationView bottomNavigationView;
     ParseUser currentUser = ParseUser.getCurrentUser();
+    List<Post> profilePosts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        profilePosts = new ArrayList<>();
         //1.) Set up the toolbar for this frag:
         Toolbar toolbar = findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
         ActionBar supportActionBar = (this.getSupportActionBar());
         supportActionBar.setDisplayShowHomeEnabled(true);
-        supportActionBar.setLogo(R.drawable.nux_dayone_landing_logo);
+
 
         //toHomeFragment();
         bottomNavigationView = binding.bottomNavigation;
@@ -99,9 +105,18 @@ public class MainActivity extends AppCompatActivity implements com.example.parst
         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new PostCreationFragment()).commit();
     }
 
-    @Override
-    public void toProfileFragment(ParseUser user) {
-        fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new ProfileFragment()).commit();
+
+    public void toProfileFragment(ParseUser userParse) {
+        ParseUser.getCurrentUser().fetchInBackground(new GetCallback<ParseUser>() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+                currentUser = user;
+                queryProfilePosts(user.getObjectId());
+
+
+            }
+        });
+
     }
 
     @Override
@@ -114,5 +129,26 @@ public class MainActivity extends AppCompatActivity implements com.example.parst
 
     }
 
+    public void queryProfilePosts(String userObjectId) {
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        query.whereEqualTo(Post.KEY_USER, currentUser);
+        query.include(Post.KEY_USER);
+        query.addDescendingOrder("createdAt");
+        query.setLimit(20);
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if (e == null) {
+                    Log.d(TAG, "success getting posts for profile!" + posts);
+
+                    profilePosts.clear();
+                    profilePosts.addAll(posts);
+                    fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new ProfileFragment(currentUser, profilePosts)).commit();
+                } else {
+                    Log.e(TAG, "failed getting posts for profile!");
+                }
+            }
+        });
+    }
 
 }
