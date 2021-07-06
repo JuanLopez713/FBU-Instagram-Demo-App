@@ -97,6 +97,11 @@ public class ProfileFragment extends Fragment {
         ivProfilePic = binding.ivUserProfile;
         tvBio = binding.tvBio;
         tvUsername = binding.tvUsername;
+        if(user != ParseUser.getCurrentUser()){
+            btnLogout.setVisibility(View.GONE);
+        } else{
+            btnLogout.setVisibility(View.VISIBLE);
+        }
         // initialize the array that will hold posts and create a PostsAdapter
         //profilePosts = new ArrayList<>();
         adapter = new ProfileAdapter(getContext(), profilePosts);
@@ -152,5 +157,5 @@ public class ProfileFragment extends Fragment {
         getActivity().finish();
 
     }
-    
+
 }

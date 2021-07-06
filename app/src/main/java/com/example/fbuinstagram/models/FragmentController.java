@@ -11,4 +11,6 @@ public interface FragmentController {
     void toProfileFragment(ParseUser user);
     void signOut();
     void toPostDetailsFragment(Post post);
+
+    void toUserFragment(ParseUser user);
 }

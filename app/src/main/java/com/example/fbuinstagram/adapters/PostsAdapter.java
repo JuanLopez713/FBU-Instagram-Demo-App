@@ -1,6 +1,7 @@
 package com.example.fbuinstagram.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.fbuinstagram.R;
 import com.example.fbuinstagram.models.Post;
+import com.example.parstagram.FragmentController;
 import com.parse.ParseFile;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
     private Context context;
     private List<Post> posts;
+    com.example.parstagram.FragmentController controller;
 
     public PostsAdapter(Context context, List<Post> posts) {
         this.context = context;
@@ -32,6 +37,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false);
         return new ViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull PostsAdapter.ViewHolder holder, int position) {
@@ -53,6 +59,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvCreatedAt;
         private ImageView ivProfilePic;
         private TextView tvLikeCount;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
@@ -62,7 +69,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
             tvUsernameSmall = itemView.findViewById(R.id.tvUsernameSmall);
             tvLikeCount = itemView.findViewById(R.id.tvLikeCount);
+            controller = (FragmentController) context;
         }
+
         public void bind(Post post) {
             // Bind the post data to the view elements
             tvDescription.setText(post.getDescription());
@@ -79,12 +88,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             if (profilePic != null) {
                 Glide.with(context).load(profilePic.getUrl()).circleCrop().into(ivProfilePic);
             }
-//            ivProfilePic.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//                }
-//            });
+            ivProfilePic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    controller.toUserFragment(post.getUser());
+                }
+            });
         }
 
     }

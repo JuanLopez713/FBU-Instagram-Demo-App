@@ -1,31 +1,16 @@
 package com.example.fbuinstagram.activities;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.fbuinstagram.R;
 import com.example.fbuinstagram.databinding.ActivityMainBinding;
 import com.example.fbuinstagram.fragments.FeedFragment;
@@ -36,13 +21,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements com.example.parst
     BottomNavigationView bottomNavigationView;
     ParseUser currentUser = ParseUser.getCurrentUser();
     List<Post> profilePosts;
-
+    List<Post> userPosts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,12 +92,18 @@ public class MainActivity extends AppCompatActivity implements com.example.parst
             @Override
             public void done(ParseUser user, ParseException e) {
                 currentUser = user;
-                queryProfilePosts(user.getObjectId());
+                queryProfilePosts(currentUser);
 
 
             }
         });
 
+    }
+
+
+    public void toUserFragment(ParseUser user) {
+        queryProfilePosts(user);
+     //   fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new ProfileFragment(user, profilePosts)).commit();
     }
 
     @Override
@@ -129,9 +116,9 @@ public class MainActivity extends AppCompatActivity implements com.example.parst
 
     }
 
-    public void queryProfilePosts(String userObjectId) {
+    public void queryProfilePosts(ParseUser user) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.whereEqualTo(Post.KEY_USER, currentUser);
+        query.whereEqualTo(Post.KEY_USER, user);
         query.include(Post.KEY_USER);
         query.addDescendingOrder("createdAt");
         query.setLimit(20);
@@ -143,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements com.example.parst
 
                     profilePosts.clear();
                     profilePosts.addAll(posts);
-                    fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new ProfileFragment(currentUser, profilePosts)).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new ProfileFragment(user, profilePosts)).commit();
                 } else {
                     Log.e(TAG, "failed getting posts for profile!");
                 }
