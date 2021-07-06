@@ -49,16 +49,15 @@ public class Post extends ParseObject {
         return getParseUser(KEY_USER);
     }
 
-    public void setUser(ParseUser user){
+    public void setUser(ParseUser user) {
         put(KEY_USER, user);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public String getTimeCreatedAt(Date date) {
         String stringDate = String.valueOf(date);
-    // String firstPart = stringDate.substring(0, 10);
-    // String secondPart = stringDate.substring(24, 28);
-        Log.d(TAG, "getTimeCreatedAt: "+ stringDate);
+
+        Log.d(TAG, "getTimeCreatedAt: " + stringDate);
         String twitterFormat = "EEE MMM dd HH:mm:ss zzz yyyy";
         Log.d(TAG, "getTimeCreatedAt: " + twitterFormat);
         SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
@@ -74,8 +73,6 @@ public class Post extends ParseObject {
         }
 
         return relativeDate;
-
-       // return firstPart +", "+ secondPart;
     }
 
 
