@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,8 +17,10 @@ import com.example.fbuinstagram.models.Post;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
 
 import java.util.List;
 
@@ -61,6 +64,9 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         private TextView tvUsernameSmall;
         private TextView tvLikeCount;
         private ImageView ivProfilePic;
+        private ImageButton btnLike;
+        private Boolean isLiked;
+        private String userId;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -71,6 +77,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             tvUsernameSmall = itemView.findViewById(R.id.tvUsernameSmall);
             tvLikeCount = itemView.findViewById(R.id.tvLikeCount);
             ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
+            btnLike = itemView.findViewById(R.id.btnLike);
         }
 
         public void bind(Post post) {
@@ -79,8 +86,19 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             String username = post.getUser().getUsername();
             tvUsername.setText(username);
             tvUsernameSmall.setText(username);
-
-            tvLikeCount.setText("0 Likes");
+            userId = ParseUser.getCurrentUser().getObjectId();
+            int likes = post.getInt("likeCount");
+            tvLikeCount.setText(String.format("%s Likes", likes));
+            try {
+                isLiked = post.isLiked(userId);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if(isLiked){
+                btnLike.setImageResource(R.drawable.ufi_heart_active);
+            }else{
+                btnLike.setImageResource(R.drawable.ufi_heart);
+            }
 
             tvCreatedAt.setText(post.getTimeCreatedAt(post.getCreatedAt()));
             ParseFile image = post.getImage();
@@ -91,6 +109,24 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             if (profilePic != null) {
                 Glide.with(context).load(profilePic.getUrl()).circleCrop().into(ivProfilePic);
             }
+            btnLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        post.likePostHandler(ParseUser.getCurrentUser());
+                        int likes = post.getInt("likeCount");
+                        tvLikeCount.setText(String.format("%s Likes", likes));
+                        isLiked = !isLiked;
+                        if(isLiked){
+                            btnLike.setImageResource(R.drawable.ufi_heart_active);
+                        }else{
+                            btnLike.setImageResource(R.drawable.ufi_heart);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 }

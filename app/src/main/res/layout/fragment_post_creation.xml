@@ -3,25 +3,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PostCreationFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".fragments.PostCreationFragment"
+    android:layout_margin="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         tools:context=".activities.MainActivity"
-        android:layout_margin="25dp">
-
+       >
         <ImageView
-            android:id="@+id/ivPostImage"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:id="@+id/ivProfilePic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="10dp"
             android:contentDescription="@string/MA_img_desc_en"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_centerHorizontal="true"/>
 
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivProfilePic"
+            android:layout_centerHorizontal="true"
+            android:text="Juan"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/ivPostImage"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/MA_img_desc_en"
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop"
+            android:background="@color/cardview_shadow_start_color"
+            android:layout_below="@id/tvUsername"/>
+
+        <TextView
+            android:id="@+id/tvNoImageWarning"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_below="@id/tvUsername"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@color/cardview_shadow_start_color"
+            android:contentDescription="@string/MA_img_desc_en"
+            android:gravity="center"
+            android:text="Take a picture of something neat!"
+            android:textSize="16sp"
+            android:textStyle="italic" />
         <EditText
             android:id="@+id/etDescription"
             android:layout_width="match_parent"
@@ -46,9 +80,7 @@
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:layout_below="@id/btnCaptureImage"
-            android:layout_marginTop="200dp"
+            android:layout_alignParentBottom="true"
             android:text="@string/MA_sub_btn_txt_en" />
 
     </RelativeLayout>

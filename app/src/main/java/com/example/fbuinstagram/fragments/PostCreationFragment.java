@@ -30,8 +30,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.fbuinstagram.databinding.FragmentPostCreationBinding;
 import com.example.fbuinstagram.models.Post;
 import com.example.parstagram.FragmentController;
@@ -68,6 +71,10 @@ public class PostCreationFragment extends Fragment {
     private Button btnSubmit;
     private File photoFile;
     private String photoFileName;
+    private ImageView ivProfilePic;
+    private TextView tvUsername;
+    private TextView tvNoImageWarning;
+    ParseUser user;
 
     Uri fileProvider;
     ActivityResultLauncher<Intent> cameraResultLauncher;
@@ -75,8 +82,9 @@ public class PostCreationFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public PostCreationFragment() {
+    public PostCreationFragment(ParseUser user) {
         // Required empty public constructor
+        this.user = user;
     }
     @Override
     public void onAttach(@NonNull @NotNull Context context) {
@@ -92,16 +100,14 @@ public class PostCreationFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param user Parameter 1.
      * @return A new instance of fragment PostCreationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PostCreationFragment newInstance(String param1, String param2) {
-        PostCreationFragment fragment = new PostCreationFragment();
+    public static PostCreationFragment newInstance(ParseUser user) {
+        PostCreationFragment fragment = new PostCreationFragment(user);
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -125,6 +131,7 @@ public class PostCreationFragment extends Fragment {
                             Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                             if (ivPostImage != null) {
                                 ivPostImage.setImageBitmap(takenImage);
+                                tvNoImageWarning.setVisibility(View.GONE);
                                 //  imagePosted = true;
                             } else {
                                 //   imagePosted = false;
@@ -154,7 +161,19 @@ public class PostCreationFragment extends Fragment {
         btnCaptureImage = binding.btnCaptureImage;
         ivPostImage = binding.ivPostImage;
         btnSubmit = binding.btnSubmit;
+        ivProfilePic = binding.ivProfilePic;
+        tvUsername = binding.tvUsername;
+tvNoImageWarning = binding.tvNoImageWarning;
+        ParseFile profilePic = user.getParseFile("profilePicture");
+        if(profilePic != null){
 
+                Log.d(TAG, "Found your profile picture!");
+                Glide.with(getContext()).load(profilePic.getUrl()).centerCrop()
+                        .transform(new CircleCrop()).into(ivProfilePic);
+
+        }
+
+        tvUsername.setText(user.getUsername());
 
         //1a.) Initialize a file to store the taken pictures:
         photoFile = getPhotoFileUri(photoFileName);          // creates a file reference for future access!
@@ -240,6 +259,7 @@ public class PostCreationFragment extends Fragment {
                 Log.i(TAG, "Post save was successful!");
                 etDescription.setText("");
                 ivPostImage.setImageResource(0);
+                tvNoImageWarning.setVisibility(View.VISIBLE);
                 controller.toHomeFragment();
             }
         });

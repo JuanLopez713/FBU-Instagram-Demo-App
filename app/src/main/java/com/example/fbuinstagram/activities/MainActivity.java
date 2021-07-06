@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements com.example.parst
 
     @Override
     public void toPostFragment() {
-        fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new PostCreationFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new PostCreationFragment(currentUser)).commit();
     }
 
 

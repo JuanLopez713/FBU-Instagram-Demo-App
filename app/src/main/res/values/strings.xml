@@ -15,5 +15,6 @@
     <string name="sign_up_en">Sign Up</string>
     <string name="sign_up_text_en">Don\'t have an account? Sign up!</string>
     <string name="login_text_signin_en">Already have an account? Log in!</string>
+    <string name="LIKED_BY">likedBy</string>
 
 </resources>
