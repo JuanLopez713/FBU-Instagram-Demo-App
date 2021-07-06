@@ -45,8 +45,24 @@ Please list two areas of the assignment you'd like to **discuss further with you
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
+<table><tr>
+     <td>  
+  <img  src='https://github.com/JuanLopez713/FBUInstagram/blob/master/demoApp.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+    </td>
+    <td>
+<ul>First Demo</ul>
+      <ul>Shows off login in with authentication, clicking user profiles, seeing your own profile, being able to log out, and posting new content </ul>
+    </td>
+  </tr>
+  
+  <tr><td>
+  <img  src='https://github.com/JuanLopez713/FBUInstagram/blob/master/demoApp2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+  </td><td>
+  <ul>Second Demo</ul>
+    <ul>Shows off user creation, liking a post, and little details such as a default profile picture and warnings when there are no photos or images in the profile or post creation fragment.</ul>
+  </td></tr></table>
 
-<img height="500px" src='https://github.com/JuanLopez713/FBUInstagram/blob/master/demoApp.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 
 GIF created with [Kap](https://getkap.co/).
 
