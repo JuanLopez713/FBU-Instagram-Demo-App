@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.fbuinstagram.activities.LoginActivity;
+import com.example.fbuinstagram.adapters.GridAdapter;
 import com.example.fbuinstagram.adapters.ProfileAdapter;
 
 import com.example.fbuinstagram.databinding.FragmentProfileBinding;
@@ -57,6 +59,9 @@ public class ProfileFragment extends Fragment {
     ImageView ivProfilePic;
     TextView tvBio;
     TextView tvUsername;
+    GridView gvPostGrid;
+    GridAdapter gridAdapter;
+
 
     public ProfileFragment(ParseUser user, List<Post> profilePosts) {
         // Required empty public constructor
@@ -97,6 +102,9 @@ public class ProfileFragment extends Fragment {
         ivProfilePic = binding.ivUserProfile;
         tvBio = binding.tvBio;
         tvUsername = binding.tvUsername;
+        gvPostGrid = binding.gvPostGrid;
+
+        boolean isGridView = true;
         if(user != ParseUser.getCurrentUser()){
             btnLogout.setVisibility(View.GONE);
         } else{
@@ -105,12 +113,15 @@ public class ProfileFragment extends Fragment {
         // initialize the array that will hold posts and create a PostsAdapter
         //profilePosts = new ArrayList<>();
         adapter = new ProfileAdapter(getContext(), profilePosts);
+
         Log.d(TAG, "onViewCreated: " + profilePosts);
         // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        gridAdapter = new GridAdapter(getContext(), profilePosts );
+        gvPostGrid.setAdapter(gridAdapter);
         if (user != null) {
 
             ParseFile image = user.getParseFile("profilePicture");
@@ -126,10 +137,19 @@ public class ProfileFragment extends Fragment {
             tvBio.setText(user.getString("bio"));
             tvPostsValue.setText(String.valueOf(profilePosts.size()));
             if (profilePosts.size() > 0) {
-                rvPosts.setVisibility(View.VISIBLE);
+
+                if(isGridView){
+                    rvPosts.setVisibility(View.GONE);
+                    gvPostGrid.setVisibility(View.VISIBLE);
+                }else{
+                    rvPosts.setVisibility(View.VISIBLE);
+                    gvPostGrid.setVisibility(View.GONE);
+                }
+//                rvPosts.setVisibility(View.VISIBLE);
                 tvNoImagesWarning.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
             } else {
+                gvPostGrid.setVisibility(View.GONE);
                 rvPosts.setVisibility(View.GONE);
                 tvNoImagesWarning.setVisibility(View.VISIBLE);
             }
